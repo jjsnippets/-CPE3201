@@ -1,0 +1,67 @@
+## MPLAB IDE 8.92
+# build outputs
+# *.hex             # as proteus will use the .hex output
+*.cof
+*.map
+*.lst
+*.obj
+*.o
+*.d
+*.pre
+*.tmp
+*.sym
+*.sdb
+*.err
+*.rpt
+*.bak
+*.as
+*/funclist
+*.hxl
+*.mcs
+*.mcw
+*.p1
+*.cmf
+*.rlf
+
+# build directories
+build/
+dist/
+output/
+tmp/
+
+# Tool-generated logs
+*.log
+*.log.inx
+
+
+## Proteus 8.11
+# Proteus backup and autosave files
+*.PDSBAK
+*.BAK
+*.TMP
+
+# Proteus autosave and recovery directories
+*/Backup/
+*/Autosave/
+*/Temp/
+*.log
+
+# Simulation output files
+*.hex
+*.elf
+*.obj
+*.cof
+
+# Compiled object and dependency files
+*.o
+*.d
+*.exe
+
+# External or generated firmware directories
+fehproteusfirmware/
+
+## IDE and editor metadata
+.vscode/
+.idea/
+*.workspace
+*.layout
