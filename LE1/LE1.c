@@ -1,3 +1,8 @@
+// CPE 3201 - EMBEDDED SYSTEMS
+// Group 4      TTh 7:30 AM - 10:30 AM LB 285 TC
+// Sarcol, Joshua S.        BS CpE - 3      2026/02/20
+// Practical Activity 1: Installation and Familiarization of MPLAB IDE
+
 #include <xc.h>
 
 #pragma config FOSC = XT
