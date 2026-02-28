@@ -44,10 +44,11 @@ tmp/
 */Backup/
 */Autosave/
 */Temp/
+*/Project Backups/
 *.log
 
 # Simulation output files
-*.hex
+# *.hex
 *.elf
 *.obj
 *.cof
