@@ -21,7 +21,7 @@
 void initLCD();
 void instCtrl(unsigned char INST);
 void dataCtrl(unsigned char DATA);
-void delay(unsigned int x);
+void delay(unsigned int time);
 
 // Keypad array
 static unsigned char KEYPAD[] = {
