@@ -96,5 +96,5 @@ void dataCtrl(unsigned char DATA){
 // Software-defined delay
 void delay(unsigned int time){
     for (int i = 0; i < time; i++)
-        for (int j = 0; j < 25; j++);
+        for (int j = 0; j < 125; j++);
 }
