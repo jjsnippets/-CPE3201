@@ -1,7 +1,7 @@
 // CPE 3201 - EMBEDDED SYSTEMS
 // Group 4      TTh 7:30 AM - 10:30 AM LB 285 TC
-// Sarcol, Joshua S.        BS CpE - 3      2026/02/28
-// Practical Activity 2: IO Configuration and Control
+// Sarcol, Joshua S.        BS CpE - 3      2026/03/13
+// Practical Activity 3: Interrupts (External and Timer Overflows)
 
 // Microcontroler files
 #include <xc.h>
