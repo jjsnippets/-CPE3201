@@ -52,8 +52,5 @@ void interrupt ISR(){
         period = CCPR1/1000;            // Transfers captured TMR1 value
         period *= 8;                    // With normalization
 
-
-        PORTAbits.RA0 ^= 1;             // Toggle signal
-
     }
 }
