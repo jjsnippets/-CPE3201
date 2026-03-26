@@ -29,8 +29,8 @@ void main(){
 
     // TIMER1 as Capture
     T1CKPS1 = 1; T1CKPS0 = 1;           // 1:8 Prescaler
-    CCP1M3 = 0; CCP1M2 = 1;
-        CCP1M1 = 0; CCP1M0 = 1;         // Capture mode, every rising edge
+    CCP1M3 = 0; CCP1M2 = 1;             // Capture mode, every rising edge
+        CCP1M1 = 0; CCP1M0 = 1;         
     TMR1 = 0;                           // Reset to 0
     CCP1IF = 0;                         // Clear flag
     CCP1IE = 1;                         // Enable TIMER1/CCP1 match interrupt

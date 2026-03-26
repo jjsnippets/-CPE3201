@@ -19,7 +19,7 @@
 
 // Constants
 #define PERIOD 124                      // Loaded to PR2
-#define DUTYCYCLE 350                   // Loaded to CCPR1L and CCP1CON<5:4>
+#define DUTYCYCLE 350                   // Loaded to CCPR1, CCP1X, and CCP1Y
 
 // Global variables
 volatile int period = 0;
@@ -30,12 +30,12 @@ void main(){
 
     // TIMER2 as PWM
     T2CKPS1 = 1; T2CKPS0 = 0;           // 1:16 prescaler
-    CCP1M3 = 1; CCP1M2 = 1;
-        CCP1M1 = 0; CCP1M0 = 0;         // PWM mode
-    PR2 = PERIOD;                       // Load period
-    CCPR1 = (DUTYCYCLE >> 2) & 0xFF;
+    CCP1M3 = 1; CCP1M2 = 1;             // PWM mode
+        CCP1M1 = 0; CCP1M0 = 0;         
+    PR2 = PERIOD;                       // ~0.002 s
+    CCPR1 = (DUTYCYCLE >> 2) & 0xFF;    // 70% duty cycle
         CCP1X = (DUTYCYCLE >> 1) & 1;
-        CCP1Y = (DUTYCYCLE) & 1;        // Load duty cycle
+        CCP1Y = (DUTYCYCLE) & 1;        
 
     // Initialization
     PORTAbits.RA0 = 0;                  // LOW signal

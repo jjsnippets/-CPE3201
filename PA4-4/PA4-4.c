@@ -18,7 +18,7 @@
 #pragma config CP = OFF
 
 // Constants
-#define TIMERMAXCOUNT 1250              // Loaded to CCPR1
+#define PERIOD 1250                     // Loaded to CCPR1
 
 // Function prototypes
 void interrupt ISR();
@@ -34,9 +34,9 @@ void main(){
     // TIMER1 as Compare
     T1CKPS1 = 1; T1CKPS0 = 0;           // 1:4 Prescaler
     TMR1 = 0;                           // Reset TIMER1 to 0
-    CCP1M3 = 1; CCP1M2 = 0;
-        CCP1M1 = 1; CCP1M0 = 0;         // Compare mode, software interrupt on match
-    CCPR1 = TIMERMAXCOUNT;              // Value to match
+    CCP1M3 = 1; CCP1M2 = 0;             // Compare mode, software interrupt on match
+        CCP1M1 = 1; CCP1M0 = 0;         
+    CCPR1 = PERIOD;                     // ~0.01 s
     CCP1IF = 0;                         // Clear flag
     CCP1IE = 1;                         // Enable TIMER1/CCP1 match interrupt
 

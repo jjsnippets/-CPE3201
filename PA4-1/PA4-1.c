@@ -18,7 +18,7 @@
 #pragma config CP = OFF
 
 // Constants
-#define STARTTIME (0xFFFF - 62500)      // Load to TMR1
+#define PERIOD (0xFFFF - 62500)         // Load to TMR1
 
 // Function prototypes
 void interrupt ISR();
@@ -32,7 +32,7 @@ void main(){
     T1CKPS1 = 1; T1CKPS0 = 1;           // 1:8 Prescaler
     T1OSCEN = 0;                        // TIMER1 oscillator disabled
     TMR1CS = 0;                         // Internal clock
-    TMR1 = STARTTIME;                   // 65536 - 62500
+    TMR1 = PERIOD;                      // ~0.5 s
     TMR1IF = 0;                         // Clear flag
     TMR1IE = 1;                         // Enable TIMER1 interrupt
 
@@ -49,10 +49,10 @@ void main(){
 }
 
 void interrupt ISR(){
-    if(TMR1IE && TMR1IF) {              // Every 0.5s (from TIMER1) 
+    if(TMR1IE && TMR1IF) {              // Every 0.5 s (from TIMER1) 
         TMR1IF = 0;
 
-        TMR1 = STARTTIME;               // Then re-set TIMER1
+        TMR1 = PERIOD;                  // Then re-set TIMER1
         PORTAbits.RA0 ^= 1;             // Toggle LED
 
     }

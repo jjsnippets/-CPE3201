@@ -18,7 +18,7 @@
 #pragma config CP = OFF
 
 // Constants
-#define STARTTIME 125                   // Loaded to PR2
+#define PERIOD 125                      // Loaded to PR2
 
 // Function prototypes
 void interrupt ISR();
@@ -30,12 +30,12 @@ void main(){
 
     // TIMER2
     T2CKPS1 = 0; T2CKPS0 = 1;           // 1:4 Clock prescaler
-    PR2 = STARTTIME;                    // Loaded time for TIMER2
+    PR2 = PERIOD;                       // ~0.001 s
     TMR2IF = 0;                         // Clear flag
     TMR2IE = 1;                         // Enable TIMER1 interrupt
 
     // Initialization
-    PORTAbits.RA0 = 0;                  // LED off
+    PORTAbits.RA0 = 0;                  // LOW signal
 
     // Enable interrupts and timers
     PEIE = 1;                           // Peripheral interrupt
@@ -47,7 +47,7 @@ void main(){
 }
 
 void interrupt ISR(){
-    if(TMR2IE && TMR2IF) {              // Every 0.5s (from TIMER1) 
+    if(TMR2IE && TMR2IF) {              // Every 0.001 s (from TIMER2) 
         TMR2IF = 0;
 
         PORTAbits.RA0 ^= 1;             // Toggle signal
