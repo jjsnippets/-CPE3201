@@ -17,9 +17,6 @@
 #pragma config WRT = OFF
 #pragma config CP = OFF
 
-// Constants
-#define STARTTIME 125                   // Loaded to PR2
-
 // Function prototypes
 void interrupt ISR();
 
