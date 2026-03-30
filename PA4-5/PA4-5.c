@@ -35,10 +35,7 @@ void main(){
     PR2 = PERIOD;                       // ~0.002 s
     CCPR1 = (DUTYCYCLE >> 2) & 0xFF;    // 70% duty cycle
         CCP1X = (DUTYCYCLE >> 1) & 1;
-        CCP1Y = (DUTYCYCLE) & 1;        
-
-    // Initialization
-    PORTAbits.RA0 = 0;                  // LOW signal
+        CCP1Y = (DUTYCYCLE) & 1;
 
     // Enable timers
     TMR2ON = 1;                         // TIMER2
