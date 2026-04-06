@@ -17,6 +17,9 @@
 #pragma config WRT = OFF
 #pragma config CP = OFF
 
+// Function prototypes
+void delay(unsigned int time);
+
 // Frequency (Period) array
 // Corresponding to 500Hz, 750Hz, 1000Hz respectively
 static unsigned char FREQUENCIES[3] = {
@@ -51,6 +54,7 @@ void main(){
     // TIMER2 as PWM
     T2CKPS1 = 1; T2CKPS0 = 0;           // 1:16 prescaler
     CCP1M3 = 1; CCP1M2 = 1;             // PWM mode
+        CCP1M1 = 0; CCP1M0 = 0;
 
     // Enable timers
     TMR2ON = 1;                         // TIMER2
@@ -76,5 +80,13 @@ void main(){
         CCPR1 = (dutyCycle >> 2) & 0xFF;
         CCP1X = (dutyCycle >> 1) & 1;
         CCP1Y = (dutyCycle) & 1;
+
+        delay(100);
     }
+}
+
+// Software-defined delay
+void delay(unsigned int time){
+    for (int i = 0; i < time; i++)
+        for (int j = 0; j < 125; j++);
 }
