@@ -25,10 +25,11 @@ void main(){
     // Local variables
     unsigned long d_value = 0;      // ADC value
     unsigned char disp = 0;         // Normalized ADC value
-    unsigned char tens, ones;       // BCD temporary variables
+    unsigned char ones, deci;       // BCD temporary variables
 
     // GPIO ports set-up
-    TRISB = 0x00;                   // PORTB as output, LEDs
+    TRISB = 0x00;                   // PORTB as output, 7-segment data
+    TRISE = 0x00;                   // PORTE as output, 7-segment control
     TRISA = 0x01;                   // RA0 as input, potentiometer input
     PCFG3 = 1; PCFG2 = 1;           // AN0 as analog (RA0)
         PCFG1 = 1; PCFG0 = 0;       // Vref+ = Vdd, Vref- = Vss
@@ -41,8 +42,9 @@ void main(){
     ADFM = 1;                       // Right align
     ADON = 1;                       // Turn on AD module
 
-    // Initialize to 0
+    // Initialization
     PORTB = 0x00;
+    PORTE = 0x03;
 
     // Foreground routine
     while(1){
@@ -54,9 +56,20 @@ void main(){
         disp = ((d_value / 1024) + 1) / 2; 
         
         // Display results
-        tens = disp / 10;           // BCD format
-        ones = disp % 10;
-        PORTB = (tens << 4) | ones;
+        ones = disp / 10;           // BCD format
+        deci = disp % 10;
+        
+        // Display individually
+        // Ones digit
+        PORTE = 0x03;
+        PORTB = ones;
+        PORTE = 0x01;
+        delay(2);
+
+        // Decimal digit
+        PORTE = 0x03;
+        PORTB = deci;
+        PORTE = 0x02;
     }
 }
 
