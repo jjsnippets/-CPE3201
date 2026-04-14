@@ -18,12 +18,15 @@
 #pragma config CP = OFF
 
 // Function prototypes
+void interrupt ISR();
 unsigned int readADC();
 void delay(unsigned int cnt);
 
+// Global variables
+volatile unsigned int adcValue = 0;
+
 void main(){
     // Local variables
-    unsigned long d_value = 0;      // ADC value
     unsigned char disp = 0;         // Normalized ADC value
     unsigned char ones, deci;       // BCD temporary variables
 
@@ -42,18 +45,31 @@ void main(){
     ADFM = 1;                       // Right align
     ADON = 1;                       // Turn on AD module
 
+    // Interrupt set-up
+    ADIF = 0;
+    ADIE = 1;
+    PEIE = 1;
+
     // Initialization
     PORTB = 0x00;
     PORTE = 0x03;
+    delay(15);
+    GIE = 1;
 
     // Foreground routine
     while(1){
-        d_value = readADC() * 100UL;  // Get ADC value
+        // Start conversion
+        GO_DONE = 1;
+
+        // Temporarily disable adc interrupt
+        ADIE = 0;
+        unsigned long tempValue = adcValue * 100UL;
+        ADIE = 1;
 
         // 0.05V = 10.24
         // Divides d_value by 1024 to find 0.05V intervals, adds 1 for rounding, 
         // then divides by 2 to convert to 0.1V steps.
-        disp = ((d_value / 1024) + 1) / 2; 
+        disp = ((tempValue / 1024) + 1) / 2; 
         
         // Display results
         ones = disp / 10;           // BCD format
@@ -70,19 +86,17 @@ void main(){
         PORTE = 0x03;
         PORTB = deci;
         PORTE = 0x02;
+        delay(2);
     }
 }
 
-unsigned int readADC(){
-    unsigned int res = 0;          // Result variable
-    delay(15);                      // Aquisition time
-    GO_DONE = 1;                    // Start conversion
-    while(GO_DONE);                 // Wait for conversion to finish
+void interrupt ISR(){
+    if(ADIE && ADIF){               // When A/D conversion is done
+        ADIF = 0;
 
-    // Read results
-    res = (ADRESH << 8) | ADRESL;
-
-    return res;
+        // Read results
+        adcValue = (ADRESH << 8) | ADRESL;
+    }
 }
 
 void delay(unsigned int cnt){
