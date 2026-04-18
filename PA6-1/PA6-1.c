@@ -28,7 +28,7 @@ void main() {
     // Foreground routine
     TXEN = 1;           // Start of transmission
     while(1) {
-        while(TRMT)     // When TSR is empty (ready to send)
+        while(!TRMT);   // When TSR is empty (ready to send)
         TXREG = 'A';    // Then load a value of 'A' to be sent
     }
 }
