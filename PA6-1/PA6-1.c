@@ -22,7 +22,7 @@ void main() {
     SPEN = 1;           // Serial port enable
     SYNC = 0;           // Asynchronous mode
     BRGH = 1;           // High speed
-    SPBRG = 0x19;       // 9.6Kbaud at 4MH; 0.16%
+    SPBRG = 0x19;       // 9.6Kbaud at 4MH; 0.16% error
     TX9 = 0;            // 8-bit transmission
 
     // Foreground routine
