@@ -19,15 +19,16 @@
 
 void main() {
     // USART Asynchronous Transmission
-    SPEN = 1;               // Serial port enable
-    SYNC = 0;               // Asynchronous mode
-    BRGH = 1;               // High speed
-    SPBRG = 0x19;           // 9.6Kbaud at 4MH; 0.16%
-    TX9 = 0;                // 8-bit transmission
+    SPEN = 1;           // Serial port enable
+    SYNC = 0;           // Asynchronous mode
+    BRGH = 1;           // High speed
+    SPBRG = 0x19;       // 9.6Kbaud at 4MH; 0.16%
+    TX9 = 0;            // 8-bit transmission
 
     // Foreground routine
-    TXEN = 1;               // Start of transmission
-    while(1)
-        while(TXIF)         // When TXREG is empty
-            TXREG = 'A';    // Then load a value of 'A' to be sent
+    TXEN = 1;           // Start of transmission
+    while(1) {
+        while(TRMT)     // When TSR is empty (ready to send)
+        TXREG = 'A';    // Then load a value of 'A' to be sent
+    }
 }
